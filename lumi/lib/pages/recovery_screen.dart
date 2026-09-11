@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ai_chat_screen.dart';
 
 class RecoveryScreen extends StatelessWidget {
   final int stressLevel;
@@ -81,6 +82,28 @@ class RecoveryScreen extends StatelessWidget {
                         ],
                       ),
                     )),
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: _primaryDark,
+                      side: const BorderSide(color: _primary),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    ),
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => AiChatScreen(
+                          stressLevel: stressLevel,
+                          energyLevel: energyLevel,
+                        ),
+                      ),
+                    ),
+                    icon: const Icon(Icons.chat_bubble_outline_rounded, size: 18),
+                    label: const Text('Talk to Lumi', style: TextStyle(fontSize: 15)),
+                  ),
+                ),
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
