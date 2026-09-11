@@ -1,2 +1,12 @@
-Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('6aa3507d00149bb41795'); 
-Account account = Account(client);
+
+import 'package:appwrite/appwrite.dart';
+import '../config/environment.dart';
+
+class Appwrite {
+  static final Client client = Client()
+      .setEndpoint(APPWRITE_ENDPOINT)
+      .setProject(APPWRITE_PROJECT_ID);
+
+  static final Account account = Account(client);
+  static final Databases databases = Databases(client);
+}
