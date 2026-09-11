@@ -67,19 +67,10 @@ class _SignupScreenState extends State<SignupScreen> {
         name: name,
       );
 
-      if (!mounted) return;
-
-      await showSuccessDialog(
-        context,
-        message: 'Account created successfully!',
-      );
-
-      if (!mounted) return;
-
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => const LoginScreen(),
-        ),
+      // remark: delete this if fail
+      await Appwrite.account.createEmailPasswordSession(
+        email: email,
+        password: password,
       );
 
       if (!mounted) return;
