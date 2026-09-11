@@ -9,4 +9,4 @@ class Appwrite {
 
   static final Account account = Account(client);
   static final Databases databases = Databases(client);
-}
+} 
