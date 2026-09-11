@@ -1,7 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import '../services/appwrite_client.dart';
-import 'add_commitment_screen.dart';
+import 'commitments_list_screen.dart';
 import 'signup_screen.dart';
 import 'success_dialog.dart';
 
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // TODO: point this to your real home/dashboard screen once it exists.
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const AddCommitmentScreen()),
+        MaterialPageRoute(builder: (_) => const CommitmentsListScreen()),
       );
     } on AppwriteException catch (e) {
       setState(() => _errorMessage = e.message ?? 'Login failed. Please try again.');
