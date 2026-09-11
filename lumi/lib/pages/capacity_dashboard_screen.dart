@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/commitment.dart';
 import '../services/commitment_service.dart';
+import 'load_balancer_screen.dart';
 
 class CapacityDashboardScreen extends StatefulWidget {
   const CapacityDashboardScreen({super.key});
@@ -145,7 +146,29 @@ class _CapacityDashboardScreenState extends State<CapacityDashboardScreen> {
                     ),
                     const SizedBox(height: 28),
                     _OverallCapacityCard(percent: overallPercent, totalMinutes: totalMinutes),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
+                    if (minutesByCategory.values.any((m) => m > _weeklyCapacityMinutesPerCategory))
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => const LoadBalancerScreen()),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: _primaryDark,
+                            backgroundColor: Colors.white,
+                            side: BorderSide(color: _primary.withOpacity(0.4)),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                          ),
+                          icon: const Icon(Icons.balance_rounded, size: 18),
+                          label: const Text(
+                            'Rebalance my week',
+                            style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 8),
                     const Text(
                       'Load by category',
                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: _primaryDark),
