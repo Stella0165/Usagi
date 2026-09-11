@@ -5,6 +5,7 @@ import '../services/commitment_service.dart';
 import '../services/appwrite_client.dart';
 
 import 'add_commitment_screen.dart';
+import 'capacity_dashboard_screen.dart';
 import 'landing_screen.dart';
 
 class CommitmentsListScreen extends StatefulWidget {
@@ -66,6 +67,14 @@ class _CommitmentsListScreenState
     if (saved == true) {
       _refresh();
     }
+  }
+
+  void _openDashboard() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const CapacityDashboardScreen(),
+      ),
+    );
   }
 
   Future<bool> _confirmDelete(
@@ -263,6 +272,15 @@ class _CommitmentsListScreenState
                                   color:
                                       _primaryDark,
                                 ),
+                              ),
+                            ),
+
+                            IconButton(
+                              tooltip: 'Capacity dashboard',
+                              onPressed: _openDashboard,
+                              icon: const Icon(
+                                Icons.donut_large_rounded,
+                                color: _primaryDark,
                               ),
                             ),
 
