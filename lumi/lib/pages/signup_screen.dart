@@ -2,6 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 
 import '../services/appwrite_client.dart';
+import 'add_commitment_screen.dart';
 import 'login_screen.dart';
 import 'success_dialog.dart';
 
@@ -73,22 +74,12 @@ class _SignupScreenState extends State<SignupScreen> {
 
       if (!mounted) return;
 
+      await showSuccessDialog(context, message: 'Account created successfully!');
+
       if (!mounted) return;
-
-        await showSuccessDialog(
-        context,
-        message: 'Account created successfully!',
-        );
-
-        if (!mounted) return;
-
-        Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-            builder: (_) => const LoginScreen(),
-        ),
-    );
-
-      // Later replace this with your real home/dashboard screen.
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const AddCommitmentScreen()),
+      );
     } on AppwriteException catch (e) {
       if (!mounted) return;
 
