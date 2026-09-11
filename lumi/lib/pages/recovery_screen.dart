@@ -91,7 +91,7 @@ class RecoveryScreen extends StatelessWidget {
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
-                    onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
+                    onPressed: () => Navigator.of(context).pop(),
                     child: const Text('Back to dashboard', style: TextStyle(fontSize: 16)),
                   ),
                 ),

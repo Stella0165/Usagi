@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../models/commitment.dart';
 import '../services/commitment_service.dart';
+import 'recovery_screen.dart';
 
 class LoadBalancerScreen extends StatefulWidget {
-  const LoadBalancerScreen({super.key});
+  final int stressLevel;
+  final int energyLevel;
+
+  const LoadBalancerScreen({
+    super.key,
+    this.stressLevel = 3,
+    this.energyLevel = 3,
+  });
 
   @override
   State<LoadBalancerScreen> createState() => _LoadBalancerScreenState();
@@ -83,6 +91,17 @@ class _LoadBalancerScreenState extends State<LoadBalancerScreen> {
       SnackBar(content: Text('Moved "${commitment.taskName}" to next week.')),
     );
     _refresh();
+  }
+
+  void _goToRecovery() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => RecoveryScreen(
+          stressLevel: widget.stressLevel,
+          energyLevel: widget.energyLevel,
+        ),
+      ),
+    );
   }
 
   @override
@@ -246,6 +265,20 @@ class _LoadBalancerScreenState extends State<LoadBalancerScreen> {
                           ),
                         );
                       }),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: _primaryDark,
+                          side: const BorderSide(color: _primary),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        ),
+                        onPressed: _goToRecovery,
+                        child: const Text("I've made my adjustments — see recovery tips"),
+                      ),
+                    ),
                   ],
                 );
               },

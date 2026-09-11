@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../models/checkin.dart';
 import '../services/checkin_service.dart';
 import 'success_dialog.dart';
+import 'load_balancer_screen.dart';
+import 'recovery_screen.dart';
 
 class StressCheckInScreen extends StatefulWidget {
   const StressCheckInScreen({super.key});
@@ -24,6 +26,15 @@ class _StressCheckInScreenState extends State<StressCheckInScreen> {
 
   static const _stressLabels = ['Very calm', 'Calm', 'Neutral', 'Stressed', 'Very stressed'];
   static const _energyLabels = ['Drained', 'Low', 'Okay', 'Energized', 'Very energized'];
+
+  /// Mirrors the "High Workload Detected?" decision in the user flow
+  /// diagram: high stress on its own, or lower stress paired with low
+  /// energy, both count as a high-workload signal worth acting on.
+  bool get _isHighWorkload {
+    final stress = _stress.round();
+    final energy = _energy.round();
+    return stress >= 4 || (stress >= 3 && energy <= 2);
+  }
 
   Future<void> _submit() async {
     setState(() {
@@ -46,7 +57,22 @@ class _StressCheckInScreenState extends State<StressCheckInScreen> {
       if (!mounted) return;
       await showSuccessDialog(context, message: 'Check-in logged!');
       if (!mounted) return;
-      Navigator.of(context).pop(true);
+
+      // "High Workload Detected?" branch from the user flow diagram:
+      //   Yes -> Load Balancer -> ... -> Recovery Suggestion -> End
+      //   No  -> Return to Dashboard
+      if (_isHighWorkload) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => LoadBalancerScreen(
+              stressLevel: _stress.round(),
+              energyLevel: _energy.round(),
+            ),
+          ),
+        );
+      } else {
+        Navigator.of(context).pop(true);
+      }
     } on AppwriteException catch (e) {
       setState(() => _errorMessage = 'Appwrite error: ${e.message ?? e.type ?? e.toString()}');
     } catch (e) {
