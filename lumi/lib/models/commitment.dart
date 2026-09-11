@@ -1,7 +1,4 @@
-/// Represents a single row in the Appwrite "commitments" table.
-///
-/// Matches the columns from the Smart Commitment Entry feature:
-/// task, category, date, duration, priority, effort, flexible/fixed.
+
 class Commitment {
   final String? id; // Appwrite document/row ID, null until saved
   final String taskName;
@@ -27,8 +24,6 @@ class Commitment {
     required this.userId,
   });
 
-  /// Converts this commitment into the map Appwrite expects when creating
-  /// or updating a row. Does not include `id` — Appwrite manages that.
   Map<String, dynamic> toMap() {
     return {
       'title': taskName,
@@ -39,14 +34,8 @@ class Commitment {
       'effort': effort,
       'isFlexible': isFlexible,
       'isDone': isDone,
-      // Note: no 'userId' column in the table. Ownership is enforced via
-      // per-row Appwrite permissions (see CommitmentService.createCommitment),
-      // not a stored field.
     };
   }
-
-  /// Builds a Commitment from an Appwrite row/document map.
-  /// Appwrite includes the row ID as `$id` in the returned document.
   factory Commitment.fromMap(Map<String, dynamic> map) {
     return Commitment(
       id: map[r'$id'] as String?,
@@ -89,7 +78,6 @@ class Commitment {
   }
 }
 
-/// Shared option lists used by dropdowns in the Add/Edit Commitment screen.
 class CommitmentOptions {
   static const categories = ['Mental', 'Time', 'Physical', 'Social', 'Errands'];
   static const priorities = ['Low', 'Medium', 'High'];

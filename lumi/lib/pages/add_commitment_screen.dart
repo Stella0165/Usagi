@@ -7,7 +7,9 @@ import '../services/commitment_service.dart';
 import 'success_dialog.dart';
 
 class AddCommitmentScreen extends StatefulWidget {
-  const AddCommitmentScreen({super.key});
+  const AddCommitmentScreen({super.key, this.existing});
+
+  final Commitment? existing;
 
   @override
   State<AddCommitmentScreen> createState() => _AddCommitmentScreenState();
@@ -17,16 +19,20 @@ class _AddCommitmentScreenState extends State<AddCommitmentScreen> {
   static const _primary = Color(0xFF7C6FE0);
   static const _primaryDark = Color(0xFF5B4FCF);
 
-  final _taskNameController = TextEditingController();
-  final _durationController = TextEditingController();
+  bool get _isEditing => widget.existing != null;
 
-  String _category = CommitmentOptions.categories.first;
-  String _priority = CommitmentOptions.priorities[1]; // Medium
-  String _effort = CommitmentOptions.efforts[1]; // Medium
-  bool _isFlexible = true;
-  DateTime _date = DateTime.now();
+  late final _taskNameController = TextEditingController(text: widget.existing?.taskName ?? '');
+  late final _durationController =
+      TextEditingController(text: widget.existing != null ? widget.existing!.durationMinutes.toString() : '');
+
+  late String _category = widget.existing?.category ?? CommitmentOptions.categories.first;
+  late String _priority = widget.existing?.priority ?? CommitmentOptions.priorities[1]; // Medium
+  late String _effort = widget.existing?.effort ?? CommitmentOptions.efforts[1]; // Medium
+  late bool _isFlexible = widget.existing?.isFlexible ?? true;
+  late DateTime _date = widget.existing?.date ?? DateTime.now();
 
   bool _isLoading = false;
+  bool _isDeleting = false;
   String? _errorMessage;
 
   @override
@@ -65,9 +71,8 @@ class _AddCommitmentScreenState extends State<AddCommitmentScreen> {
     });
 
     try {
-      final userId = (await Appwrite.account.get()).$id;
-
       final commitment = Commitment(
+        id: widget.existing?.id,
         taskName: taskName,
         category: _category,
         date: _date,
@@ -75,13 +80,21 @@ class _AddCommitmentScreenState extends State<AddCommitmentScreen> {
         priority: _priority,
         effort: _effort,
         isFlexible: _isFlexible,
-        userId: userId,
+        isDone: widget.existing?.isDone ?? false,
+        userId: widget.existing?.userId ?? (await Appwrite.account.get()).$id,
       );
 
-      await CommitmentService.createCommitment(commitment);
+      if (_isEditing) {
+        await CommitmentService.updateCommitment(commitment);
+      } else {
+        await CommitmentService.createCommitment(commitment);
+      }
 
       if (!mounted) return;
-      await showSuccessDialog(context, message: 'Commitment added successfully!');
+      await showSuccessDialog(
+        context,
+        message: _isEditing ? 'Commitment updated successfully!' : 'Commitment added successfully!',
+      );
       if (!mounted) return;
       Navigator.of(context).pop(true); // signal caller to refresh the list
     } on AppwriteException catch (e) {
@@ -92,6 +105,44 @@ class _AddCommitmentScreenState extends State<AddCommitmentScreen> {
       setState(() => _errorMessage = 'Unexpected error: $e');
     } finally {
       if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _delete() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete commitment?'),
+        content: Text('This will permanently remove "${widget.existing!.taskName}".'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+
+    setState(() {
+      _isDeleting = true;
+      _errorMessage = null;
+    });
+
+    try {
+      await CommitmentService.deleteCommitment(widget.existing!.id!);
+      if (!mounted) return;
+      Navigator.of(context).pop(true); // signal caller to refresh the list
+    } on AppwriteException catch (e) {
+      setState(() => _errorMessage = 'Appwrite error: ${e.message ?? e.type ?? e.toString()}');
+    } catch (e) {
+      setState(() => _errorMessage = 'Unexpected error: $e');
+    } finally {
+      if (mounted) setState(() => _isDeleting = false);
     }
   }
 
@@ -153,22 +204,44 @@ class _AddCommitmentScreenState extends State<AddCommitmentScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () => Navigator.of(context).maybePop(),
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.all(10),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.of(context).maybePop(),
+                      icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.all(10),
+                      ),
+                    ),
+                    if (_isEditing)
+                      IconButton(
+                        onPressed: _isDeleting ? null : _delete,
+                        icon: _isDeleting
+                            ? const SizedBox(
+                                height: 18,
+                                width: 18,
+                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.red),
+                              )
+                            : const Icon(Icons.delete_outline_rounded, size: 20, color: Colors.red),
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.all(10),
+                        ),
+                      ),
+                  ],
                 ),
                 const SizedBox(height: 28),
-                const Text(
-                  'Add commitment',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: _primaryDark),
+                Text(
+                  _isEditing ? 'Edit commitment' : 'Add commitment',
+                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: _primaryDark),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Log a task so Lumi can factor it into your weekly capacity.',
+                  _isEditing
+                      ? 'Update the details below and save your changes.'
+                      : 'Log a task so Lumi can factor it into your weekly capacity.',
                   style: TextStyle(fontSize: 15, color: Colors.black.withOpacity(0.55), height: 1.4),
                 ),
                 const SizedBox(height: 32),
@@ -296,9 +369,9 @@ class _AddCommitmentScreenState extends State<AddCommitmentScreen> {
                                   width: 22,
                                   child: CircularProgressIndicator(strokeWidth: 2.4, color: Colors.white),
                                 )
-                              : const Text(
-                                  'Save commitment',
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+                              : Text(
+                                  _isEditing ? 'Save changes' : 'Save commitment',
+                                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
                                 ),
                         ),
                       ),

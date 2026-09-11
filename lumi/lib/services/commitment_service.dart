@@ -4,19 +4,13 @@ import 'package:appwrite/models.dart' as models;
 import 'appwrite_client.dart';
 import '../models/commitment.dart';
 
-/// IMPORTANT: fill these in with your actual Appwrite database ID and
-/// the commitments table/collection ID (visible at the top of the table
-/// page in the Appwrite console, next to the table name).
 class AppwriteIds {
   static const databaseId = '6aa3529000108350f603';
   static const commitmentsCollectionId = '6aa3530300134025dc1b';
 }
 
-/// Handles all reads/writes to the "commitments" table.
-///
 /// Assumes `Appwrite.databases` exposes a `Databases` instance the same
 /// way `Appwrite.account` exposes `Account` in appwrite_client.dart.
-/// If your client file names this differently, update the references below.
 class CommitmentService {
   static Future<Commitment> createCommitment(Commitment commitment) async {
     final doc = await Appwrite.databases.createDocument(
@@ -37,9 +31,6 @@ class CommitmentService {
   }
 
   static Future<List<Commitment>> listCommitments() async {
-    // No userId filter needed: with row-level security enabled and each
-    // row's permissions scoped to its creator, Appwrite already returns
-    // only the rows the current user is allowed to read.
     final result = await Appwrite.databases.listDocuments(
       databaseId: AppwriteIds.databaseId,
       collectionId: AppwriteIds.commitmentsCollectionId,

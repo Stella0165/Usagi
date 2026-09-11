@@ -37,6 +37,38 @@ class _CommitmentsListScreenState extends State<CommitmentsListScreen> {
     if (saved == true) _refresh();
   }
 
+  Future<void> _openEditCommitment(Commitment commitment) async {
+    final saved = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(builder: (_) => AddCommitmentScreen(existing: commitment)),
+    );
+    if (saved == true) _refresh();
+  }
+
+  Future<bool> _confirmDelete(Commitment commitment) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete commitment?'),
+        content: Text('This will permanently remove "${commitment.taskName}".'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) {
+      await CommitmentService.deleteCommitment(commitment.id!);
+      return true;
+    }
+    return false;
+  }
+
   Color _categoryColor(String category) {
     switch (category) {
       case 'Mental':
@@ -146,50 +178,70 @@ class _CommitmentsListScreenState extends State<CommitmentsListScreen> {
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
                             final c = commitments[index];
-                            return Container(
-                              margin: const EdgeInsets.only(bottom: 12),
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.04),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
+                            return Dismissible(
+                              key: ValueKey(c.id),
+                              direction: DismissDirection.endToStart,
+                              confirmDismiss: (_) => _confirmDelete(c),
+                              onDismissed: (_) => _refresh(),
+                              background: Container(
+                                margin: const EdgeInsets.only(bottom: 12),
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                alignment: Alignment.centerRight,
+                                decoration: BoxDecoration(
+                                  color: Colors.red.withOpacity(0.85),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
                               ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 10,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: _categoryColor(c.category),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(16),
+                                onTap: () => _openEditCommitment(c),
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 12),
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.04),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 14),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          c.taskName,
-                                          style: const TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 10,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: _categoryColor(c.category),
+                                          borderRadius: BorderRadius.circular(6),
                                         ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          '${c.category} • ${c.priority} priority • ${c.durationMinutes} min',
-                                          style: TextStyle(fontSize: 12.5, color: Colors.black.withOpacity(0.5)),
+                                      ),
+                                      const SizedBox(width: 14),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              c.taskName,
+                                              style: const TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              '${c.category} • ${c.priority} priority • ${c.durationMinutes} min',
+                                              style: TextStyle(fontSize: 12.5, color: Colors.black.withOpacity(0.5)),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      if (c.isFlexible)
+                                        Icon(Icons.sync_alt_rounded, size: 18, color: _primary.withOpacity(0.5)),
+                                    ],
                                   ),
-                                  if (c.isFlexible)
-                                    Icon(Icons.sync_alt_rounded, size: 18, color: _primary.withOpacity(0.5)),
-                                ],
+                                ),
                               ),
                             );
                           },
