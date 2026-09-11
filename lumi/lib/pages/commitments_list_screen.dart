@@ -7,6 +7,7 @@ import '../services/appwrite_client.dart';
 import 'add_commitment_screen.dart';
 import 'capacity_dashboard_screen.dart';
 import 'landing_screen.dart';
+import 'stress_checkin_screen.dart';
 
 class CommitmentsListScreen extends StatefulWidget {
   const CommitmentsListScreen({super.key});
@@ -73,6 +74,14 @@ class _CommitmentsListScreenState
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => const CapacityDashboardScreen(),
+      ),
+    );
+  }
+
+  void _openCheckIn() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const StressCheckInScreen(),
       ),
     );
   }
@@ -280,6 +289,15 @@ class _CommitmentsListScreenState
                               onPressed: _openDashboard,
                               icon: const Icon(
                                 Icons.donut_large_rounded,
+                                color: _primaryDark,
+                              ),
+                            ),
+
+                            IconButton(
+                              tooltip: 'Quick check-in',
+                              onPressed: _openCheckIn,
+                              icon: const Icon(
+                                Icons.self_improvement_rounded,
                                 color: _primaryDark,
                               ),
                             ),

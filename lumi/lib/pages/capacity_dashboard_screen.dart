@@ -14,6 +14,9 @@ class _CapacityDashboardScreenState extends State<CapacityDashboardScreen> {
   static const _primary = Color(0xFF7C6FE0);
   static const _primaryDark = Color(0xFF5B4FCF);
 
+  // TODO: replace with a real per-user value from the "Set Weekly Availability"
+  // onboarding step once it's built. For now, assume a 40-hour week split
+  // evenly across the 5 workload categories as a rough per-category budget.
   static const int _weeklyCapacityMinutesTotal = 40 * 60;
   static const int _categoryCount = 5;
   static const int _weeklyCapacityMinutesPerCategory = _weeklyCapacityMinutesTotal ~/ _categoryCount;
@@ -115,10 +118,26 @@ class _CapacityDashboardScreenState extends State<CapacityDashboardScreen> {
                 return ListView(
                   padding: const EdgeInsets.fromLTRB(28, 24, 28, 40),
                   children: [
-                    const Text(
-                      'Your capacity',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: _primaryDark),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () => Navigator.of(context).maybePop(),
+                          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+                          style: IconButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            padding: const EdgeInsets.all(10),
+                          ),
+                        ),
+                        const SizedBox(width: 14),
+                        const Expanded(
+                          child: Text(
+                            'Your capacity',
+                            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: _primaryDark),
+                          ),
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: 6),
                     const SizedBox(height: 6),
                     Text(
                       'How your week is looking, by category.',
@@ -254,7 +273,7 @@ class _CategoryBar extends StatelessWidget {
   final String category;
   final Color color;
   final int minutes;
-  final double percentOfBudget;
+  final double percentOfBudget; // 0.0–1.5+, already clamped upstream
 
   @override
   Widget build(BuildContext context) {

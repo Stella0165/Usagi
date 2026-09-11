@@ -4,10 +4,8 @@ import 'package:appwrite/models.dart' as models;
 import 'appwrite_client.dart';
 import '../models/checkin.dart';
 
-/// IMPORTANT: fill in databaseId with the same database ID used for
-/// commitments (this table lives in the same Lumi_DB database).
 class CheckInIds {
-  static const databaseId = 'YOUR_DATABASE_ID'; // same as AppwriteIds.databaseId
+  static const databaseId = '6aa204120022966b5f66';
   static const stressEntriesCollectionId = '6aa35469002cb185a520';
 }
 
