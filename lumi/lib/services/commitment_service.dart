@@ -36,12 +36,14 @@ class CommitmentService {
     return Commitment.fromMap(doc.data);
   }
 
-  static Future<List<Commitment>> listCommitments(String userId) async {
+  static Future<List<Commitment>> listCommitments() async {
+    // No userId filter needed: with row-level security enabled and each
+    // row's permissions scoped to its creator, Appwrite already returns
+    // only the rows the current user is allowed to read.
     final result = await Appwrite.databases.listDocuments(
       databaseId: AppwriteIds.databaseId,
       collectionId: AppwriteIds.commitmentsCollectionId,
       queries: [
-        Query.equal('userId', userId),
         Query.orderAsc('date'),
       ],
     );

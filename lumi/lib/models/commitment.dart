@@ -11,6 +11,7 @@ class Commitment {
   final String priority; // 'Low' | 'Medium' | 'High'
   final String effort; // 'Low' | 'Medium' | 'High'
   final bool isFlexible; // true = flexible, false = fixed
+  final bool isDone;
   final String userId;
 
   const Commitment({
@@ -22,6 +23,7 @@ class Commitment {
     required this.priority,
     required this.effort,
     required this.isFlexible,
+    this.isDone = false,
     required this.userId,
   });
 
@@ -29,14 +31,17 @@ class Commitment {
   /// or updating a row. Does not include `id` — Appwrite manages that.
   Map<String, dynamic> toMap() {
     return {
-      'taskName': taskName,
+      'title': taskName,
       'category': category,
       'date': date.toIso8601String(),
-      'durationMinutes': durationMinutes,
+      'durationHours': durationMinutes,
       'priority': priority,
       'effort': effort,
       'isFlexible': isFlexible,
-      'userId': userId,
+      'isDone': isDone,
+      // Note: no 'userId' column in the table. Ownership is enforced via
+      // per-row Appwrite permissions (see CommitmentService.createCommitment),
+      // not a stored field.
     };
   }
 
@@ -45,14 +50,15 @@ class Commitment {
   factory Commitment.fromMap(Map<String, dynamic> map) {
     return Commitment(
       id: map[r'$id'] as String?,
-      taskName: map['taskName'] as String? ?? '',
+      taskName: map['title'] as String? ?? '',
       category: map['category'] as String? ?? 'Time',
       date: DateTime.tryParse(map['date'] as String? ?? '') ?? DateTime.now(),
-      durationMinutes: (map['durationMinutes'] as num?)?.toInt() ?? 0,
+      durationMinutes: (map['durationHours'] as num?)?.toInt() ?? 0,
       priority: map['priority'] as String? ?? 'Medium',
       effort: map['effort'] as String? ?? 'Medium',
       isFlexible: map['isFlexible'] as bool? ?? true,
-      userId: map['userId'] as String? ?? '',
+      isDone: map['isDone'] as bool? ?? false,
+      userId: '', // not stored; only used transiently when creating a row
     );
   }
 
@@ -65,6 +71,7 @@ class Commitment {
     String? priority,
     String? effort,
     bool? isFlexible,
+    bool? isDone,
     String? userId,
   }) {
     return Commitment(
@@ -76,6 +83,7 @@ class Commitment {
       priority: priority ?? this.priority,
       effort: effort ?? this.effort,
       isFlexible: isFlexible ?? this.isFlexible,
+      isDone: isDone ?? this.isDone,
       userId: userId ?? this.userId,
     );
   }

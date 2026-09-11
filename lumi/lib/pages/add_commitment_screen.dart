@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 
 import '../models/commitment.dart';
@@ -190,22 +191,11 @@ class _AddCommitmentScreenState extends State<AddCommitmentScreen> {
                 InkWell(
                   borderRadius: BorderRadius.circular(16),
                   onTap: _pickDate,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.grey.withOpacity(0.15)),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.calendar_today_rounded, color: _primary, size: 20),
-                        const SizedBox(width: 14),
-                        Text(
-                          '${_date.year}-${_date.month.toString().padLeft(2, '0')}-${_date.day.toString().padLeft(2, '0')}',
-                          style: const TextStyle(fontSize: 15.5),
-                        ),
-                      ],
+                  child: InputDecorator(
+                    decoration: _fieldDecoration(label: 'Date', icon: Icons.calendar_today_rounded),
+                    child: Text(
+                      '${_date.year}-${_date.month.toString().padLeft(2, '0')}-${_date.day.toString().padLeft(2, '0')}',
+                      style: const TextStyle(fontSize: 15.5),
                     ),
                   ),
                 ),
