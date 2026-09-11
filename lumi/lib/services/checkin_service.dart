@@ -5,7 +5,7 @@ import 'appwrite_client.dart';
 import '../models/checkin.dart';
 
 class CheckInIds {
-  static const databaseId = '6aa204120022966b5f66';
+  static const databaseId = '6aa3529000108350f603';
   static const stressEntriesCollectionId = '6aa35469002cb185a520';
 }
 
