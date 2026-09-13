@@ -19,7 +19,7 @@ class _CapacityDashboardScreenState extends State<CapacityDashboardScreen> {
   // onboarding step once it's built. For now, assume a 40-hour week split
   // evenly across the 5 workload categories as a rough per-category budget.
   static const int _weeklyCapacityMinutesTotal = 40 * 60;
-  static const int _categoryCount = 5;
+  static const int _categoryCount = 7;
   static const int _weeklyCapacityMinutesPerCategory = _weeklyCapacityMinutesTotal ~/ _categoryCount;
 
   late Future<List<Commitment>> _commitmentsFuture;
@@ -55,8 +55,16 @@ class _CapacityDashboardScreenState extends State<CapacityDashboardScreen> {
         return const Color(0xFF4FB0CF);
       case 'Social':
         return const Color(0xFFCF8F4F);
+
       case 'Errands':
         return const Color(0xFF4FCF7A);
+
+      case 'Academic':
+        return const Color(0xFF6C8CF0);
+
+      case 'Work':
+        return const Color(0xFFF0A35C);
+
       default:
         return _primary;
     }
