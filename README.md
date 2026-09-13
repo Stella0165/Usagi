@@ -24,17 +24,12 @@ Lumi is designed to help students understand their workload earlier and manage i
 
 Primary target user: Full-time university students managing multiple academic and non-academic commitments, especially those balancing coursework with part-time work, social activities, and personal responsibilities.
 
-Stakeholder: University Students
-Need/Interest: Understand and manage total workload more sustainably.
-
-Stakeholder: Universities / student support
-Need/Interest: Encourage earlier workload awareness and sustainable study habits.
-
-Stakeholder: Lecturers / tutors
-Need/Interest: Students manage academic responsibilities more effectively.
-
-Stakeholder: Development team
-Need/Interest: Build a practical, accessible and usable solution.
+| Stakeholder | Need / Interest |
+|---|---|
+| University Students | Understand and manage total workload more sustainably. |
+| Universities / Student Support | Encourage earlier workload awareness and sustainable study habits. |
+| Lecturers / Tutors | Students manage academic responsibilities more effectively. |
+| Development Team | Build a practical, accessible and usable solution. |
 
 ---
 
@@ -288,7 +283,7 @@ Using Appwrite for both hosting and backend helps simplify the setup.
 
 ## System Architecture
 
-![System Architecture Diagram](IMAGE_LINK_HERE)
+![System Architecture Diagram](https://drive.google.com/file/d/1GaT0YFOnO9P-L9oT9X-VCRkPEgWxzutX/view?usp=sharing)
 
 ---
 
