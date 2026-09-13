@@ -79,7 +79,7 @@ class Commitment {
 }
 
 class CommitmentOptions {
-  static const categories = ['Mental', 'Time', 'Physical', 'Social', 'Errands'];
+  static const categories = ['Mental', 'Time', 'Physical', 'Social', 'Errands', 'Academic', 'Work', 'Personal', 'Financial', 'Health',];
   static const priorities = ['Low', 'Medium', 'High'];
   static const efforts = ['Low', 'Medium', 'High'];
 }
