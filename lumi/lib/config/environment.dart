@@ -1,9 +1,9 @@
 const String APPWRITE_ENDPOINT = String.fromEnvironment(
-  'APPWRITE_ENDPOINT',
+  'LUMI_APPWRITE_ENDPOINT',
 );
 
 const String APPWRITE_PROJECT_ID = String.fromEnvironment(
-  'APPWRITE_PROJECT_ID',
+  'LUMI_APPWRITE_PROJECT_ID',
 );
 
 const String GEMINI_API_KEY = String.fromEnvironment(
