@@ -1,4 +1,3 @@
-const String APPWRITE_PROJECT_ID = "6aa3507d00149bb41795";
 const String APPWRITE_ENDPOINT = String.fromEnvironment(
   'APPWRITE_ENDPOINT',
 );
