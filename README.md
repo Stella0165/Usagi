@@ -4,7 +4,7 @@
 Stress & Workload Manager
 
 ### Video Presentation Link
-
+[https://youtu.be/ZKP0xkVaFIA](https://youtu.be/ZKP0xkVaFIA)
 
 ### Presentation slides
 [https://canva.link/c50m5jabcklmn35](https://canva.link/c50m5jabcklmn35)
@@ -341,7 +341,7 @@ The video presents:
 [https://usagi.appwrite.network/](https://usagi.appwrite.network/)
 
 **Unlisted YouTube Video:**  
-[YOUR_YOUTUBE_LINK_HERE]
+[[https://youtu.be/ZKP0xkVaFIA](https://youtu.be/ZKP0xkVaFIA)]
 
 **Presentation Slides:**  
 [https://canva.link/c50m5jabcklmn35](https://canva.link/c50m5jabcklmn35)
