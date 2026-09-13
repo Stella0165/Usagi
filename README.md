@@ -283,6 +283,13 @@ Using Appwrite for both hosting and backend helps simplify the setup.
 
 ## System Architecture
 
+- **Flutter Web**: Main user interface
+- **Appwrite**: Authentication, database, and hosting
+- **Gemini API**: Used for user interaction through the AI chat feature
+- **GitHub**: Source code and deployment workflow
+
+**Note**: This architecture reflects the initial design. During implementation, Gemini was used for AI chat interaction instead of workload insights and recovery suggestions.
+
 [System Architecture Diagram](https://drive.google.com/file/d/1GaT0YFOnO9P-L9oT9X-VCRkPEgWxzutX/view?usp=sharing)
 
 ---
