@@ -92,7 +92,7 @@ Lumi also focuses on:
 
 The mindmap shows the main problem, user needs, workload categories, possible features, expected impact, and final concept.
 
-![Ideation Mindmap](https://drive.google.com/file/d/1GKTMqyod8HAnlJGxaP_HQ9nCeKoC98pm/view?usp=sharing)
+[Ideation Mindmap](https://drive.google.com/file/d/1GKTMqyod8HAnlJGxaP_HQ9nCeKoC98pm/view?usp=sharing)
 
 ---
 
@@ -100,7 +100,7 @@ The mindmap shows the main problem, user needs, workload categories, possible fe
 
 The problem tree shows the causes of student overload, the main problem, and its possible effects.
 
-![Problem Tree](https://drive.google.com/file/d/1JtpX_-aXtK5XsjTq8ESJzuXuMipMpvXY/view?usp=sharing)
+[Problem Tree](https://drive.google.com/file/d/1JtpX_-aXtK5XsjTq8ESJzuXuMipMpvXY/view?usp=sharing)
 
 ---
 
@@ -108,7 +108,7 @@ The problem tree shows the causes of student overload, the main problem, and its
 
 The user flow shows how a user moves through Lumi from login and commitment entry to workload checking, rebalancing, and recovery support.
 
-![User Flow](https://drive.google.com/file/d/1CStMPi6HFUe9iANfQRSNzt5sX-ojn_-7/view?usp=sharing)
+[User Flow](https://drive.google.com/file/d/1CStMPi6HFUe9iANfQRSNzt5sX-ojn_-7/view?usp=sharing)
 
 ---
 
@@ -120,7 +120,7 @@ The concept was refined from a simple stress tracker into a personal capacity ma
 
 The main improvement was changing the application from only tracking stress into helping users take action when their workload becomes too high.
 
-![Idea Evolution](https://drive.google.com/file/d/1wfAbRBSjO_D2b6vHMXSWripa6JpXW-k3/view?usp=sharing)
+[Idea Evolution](https://drive.google.com/file/d/1wfAbRBSjO_D2b6vHMXSWripa6JpXW-k3/view?usp=sharing)
 
 ---
 
@@ -149,7 +149,7 @@ Users can view their commitments for different weeks.
 
 They can also access their capacity, health check-in, and account options. Users can select an existing commitment to edit it.
 
-![Main Commitments Page](https://drive.google.com/file/d/1yO_n7tgL2CTI0KasgbPjSDTPO_2uTEwL/view?usp=sharing)
+[Main Commitments Page](https://drive.google.com/file/d/1yO_n7tgL2CTI0KasgbPjSDTPO_2uTEwL/view?usp=sharing)
 
 ---
 
@@ -157,7 +157,7 @@ They can also access their capacity, health check-in, and account options. Users
 
 Users can edit the information of an existing commitment or delete it.
 
-![Edit Commitment Page](https://drive.google.com/file/d/1FNzxmlSmsVKcAG9Gk-iEoQxkrjOIio5L/view?usp=sharing)
+[Edit Commitment Page](https://drive.google.com/file/d/1FNzxmlSmsVKcAG9Gk-iEoQxkrjOIio5L/view?usp=sharing)
 
 ---
 
@@ -165,7 +165,7 @@ Users can edit the information of an existing commitment or delete it.
 
 When users have a high workload, they can move flexible commitments to the following week.
 
-![Rebalance Page](https://drive.google.com/file/d/1cS_oJNVOc0SJuHnOkVIm9zkbffmbDL0S/view?usp=sharing)
+[Rebalance Page](https://drive.google.com/file/d/1cS_oJNVOc0SJuHnOkVIm9zkbffmbDL0S/view?usp=sharing)
 
 ---
 
@@ -173,7 +173,7 @@ When users have a high workload, they can move flexible commitments to the follo
 
 Users can access the AI chat when they want additional support or someone to talk to.
 
-![AI Chat Page](https://drive.google.com/file/d/11s7jDWRWP_WeTw0JmXGWihU6V-_mcdkP/view?usp=sharing)
+[AI Chat Page](https://drive.google.com/file/d/11s7jDWRWP_WeTw0JmXGWihU6V-_mcdkP/view?usp=sharing)
 
 ---
 
@@ -283,7 +283,7 @@ Using Appwrite for both hosting and backend helps simplify the setup.
 
 ## System Architecture
 
-![System Architecture Diagram](https://drive.google.com/file/d/1GaT0YFOnO9P-L9oT9X-VCRkPEgWxzutX/view?usp=sharing)
+[System Architecture Diagram](https://drive.google.com/file/d/1GaT0YFOnO9P-L9oT9X-VCRkPEgWxzutX/view?usp=sharing)
 
 ---
 
