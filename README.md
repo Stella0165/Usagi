@@ -1,3 +1,5 @@
+# README.md
+
 # Lumi by Team Usagi
 
 ### Problem Statement
@@ -171,7 +173,7 @@ When users have a high workload, they can move flexible commitments to the follo
 
 ## 3.5 AI Chat Page
 
-Users can access the AI chat when they want additional support or someone to talk to.
+Users can access the AI chat when they want additional guidance or support.
 
 [AI Chat Page](https://drive.google.com/file/d/11s7jDWRWP_WeTw0JmXGWihU6V-_mcdkP/view?usp=sharing)
 
@@ -179,7 +181,7 @@ Users can access the AI chat when they want additional support or someone to tal
 
 # 4 What Makes Lumi Different
 
-The Stress & Workload Manager combines task management, stress tracking and recovery support in one application. Instead of only helping users complete tasks, the application also considers whether the user’s overall workload is becoming unhealthy through AI analysis.
+The Stress & Workload Manager combines task management, stress tracking, workload viewing, and AI chat support in one application. Instead of only helping users complete tasks, Lumi helps users understand their overall workload and take action when it becomes too high.
 
 Lumi is designed as a personal capacity manager rather than simply another task manager or stress tracker. Its main twist is that it does not stop at showing tasks or recording stress. It combines workload visibility, wellbeing check-ins, rebalancing, and recovery in one continuous flow so students can act before a high-load period becomes unmanageable.
 
@@ -190,7 +192,7 @@ Lumi is designed as a personal capacity manager rather than simply another task 
 | Workload + Wellbeing | Combines planned workload with stress or wellbeing check-ins. |
 | Recovery Support | Encourages users to consider recovery time as part of planning. |
 
-### Expected Impact
+# 5. Expected Impact
 
 **Before Lumi:**  
 Students may be able to see individual tasks but may not understand their overall workload.
@@ -200,9 +202,9 @@ Students can identify overloaded periods earlier and make adjustments to their c
 
 ---
 
-# Technical Architecture & Feasibility
+# 6. Technical Architecture & Feasibility
 
-## Frontend
+## 6.1 Frontend
 
 **Flutter**
 
@@ -215,7 +217,7 @@ Some Flutter plugins may behave differently across platforms.
 
 ---
 
-## Backend
+## 6.2 Backend
 
 **Appwrite**
 
@@ -226,7 +228,7 @@ The free plan has resource and usage limits.
 
 ---
 
-## Database
+## 6.3 Database
 
 **Appwrite Database**
 
@@ -239,7 +241,7 @@ An internet connection is required.
 
 ---
 
-## Authentication
+## 6.4 Authentication
 
 **Appwrite Auth**
 
@@ -252,18 +254,18 @@ Authentication depends on internet access and Appwrite availability.
 
 ---
 
-## AI API
+## 6.5 AI API
 
 **Gemini API**
 
-Gemini is used to support AI-related features such as recovery suggestions and AI chat.
+Gemini is used to provide the AI chat feature, allowing users to interact with an AI assistant when they need additional support.
 
 **Constraint:**  
 The free API tier has usage limits.
 
 ---
 
-## Version Control
+## 6.6 Version Control
 
 **GitHub**
 
@@ -271,7 +273,7 @@ GitHub is used for source control, version history, and project backup.
 
 ---
 
-## Hosting
+## 6.7 Hosting
 
 **Appwrite Sites**
 
@@ -281,7 +283,7 @@ Using Appwrite for both hosting and backend helps simplify the setup.
 
 ---
 
-## System Architecture
+## 7.0 System Architecture
 
 - **Flutter Web**: Main user interface
 - **Appwrite**: Authentication, database, and hosting
@@ -294,7 +296,7 @@ Using Appwrite for both hosting and backend helps simplify the setup.
 
 ---
 
-# Build Scope
+# 8.0 Build Scope
 
 The minimum project scope includes:
 
@@ -317,10 +319,10 @@ The main objective remains the same: helping students understand and manage thei
 
 ---
 
-# Video Presentation
+# 9.0 Video Presentation
 
 **Unlisted YouTube Video:**  
-[YOUR_YOUTUBE_LINK_HERE]
+[[https://youtu.be/ZKP0xkVaFIA](https://youtu.be/ZKP0xkVaFIA)]
 
 The video presents:
 
@@ -333,13 +335,13 @@ The video presents:
 
 ---
 
-# Presentation Slides
+# 10.0 Presentation Slides
 
 [https://canva.link/c50m5jabcklmn35](https://canva.link/c50m5jabcklmn35)
 
 ---
 
-# Project Links
+# 11.0 Overall Project Links 
 
 **Public GitHub Repository:**  
 [https://github.com/Stella0165/Usagi.git](https://github.com/Stella0165/Usagi.git)
@@ -362,4 +364,4 @@ The video presents:
 | Member | Role |
 |---|---|
 | Stella Wong Kai Ning | Tech Stack / Programming |
-| Tan Xiao Jie | Decoumentation |
+| Tan Xiao Jie | Documentations |
