@@ -263,6 +263,12 @@ class _CommitmentsListScreenState
       case 'Errands':
         return const Color(0xFF4FCF7A);
 
+      case 'Academic':
+        return const Color(0xFF6C8CF0);
+
+      case 'Work':
+        return const Color(0xFFF0A35C);
+
       default:
         return _primary;
     }
